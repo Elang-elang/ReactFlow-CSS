@@ -1,0 +1,54 @@
+# MIT License
+
+**Copyright (c) 2025 Elang Muhammad**
+
+---
+
+## ReactFlow CSS License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+## Project Information
+
+**ReactFlow CSS** is an original CSS framework created by Elang Muhammad on July 15, 2025. This project integrates and builds upon components from the following MIT-licensed open-source libraries:
+
+- **Tailwind CSS** - Utility-first CSS framework (Copyright Tailwind Labs, Inc.)
+- **Bootstrap** - Responsive CSS framework (Copyright Bootstrap team)
+- **ReactPy** - Python UI framework (Copyright ReactPy team)
+
+## Attribution Requirements
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Additionally, when distributing ReactFlow CSS, you must:
+
+1. **Preserve primary attribution**: Include "ReactFlow CSS - Copyright (c) 2025 Elang Muhammad"
+2. **Maintain upstream credits**: Acknowledge the incorporated libraries from Tailwind CSS, Bootstrap, and ReactPy
+3. **Include license text**: This complete license must accompany all distributions
+4. **Document modifications**: Clearly identify any changes made to the original work
+
+## Usage Rights
+
+This license grants you the right to:
+- Use ReactFlow CSS in personal and commercial projects
+- Modify and create derivative works
+- Distribute original and modified versions
+- Sublicense under compatible terms
+- Integrate with other open-source projects
+
+## Compliance
+
+To remain compliant with this license:
+- Include all required attributions in your distributions
+- Maintain copyright notices for both ReactFlow CSS and upstream libraries
+- Ensure derivative works use compatible licensing terms
+- Respect the MIT License terms of all incorporated components
+
+## Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+**Author**: Elang Muhammad  
+**Project**: ReactFlow CSS  
+**Date**: July 15, 2025  
+**Dependencies**: ReactPy, Tailwind CSS, Bootstrap
