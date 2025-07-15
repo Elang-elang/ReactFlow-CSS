@@ -1,0 +1,10 @@
+include reactflow_css/modules/tailwindcss/*
+include reactflow_css/modules/bootstrap/css/*
+include reactflow_css/modules/bootstrap/js/*
+include reactflow_css/modules/bootstrap/*
+include reactflow_css/modules/bootstrap/**/*
+include reactflow_css/modules/*
+include reactflow_css/modules/**/*
+include reactflow_css/*
+include reactflow_css/**/*
+recursive-include reactflow_css/modules *

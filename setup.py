@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ReactFlow_CSS",
-    version="1.0.3",
+    version="1.0.6",
     author="Elang Muhammad",
     author_email="elangmuhammad888@gmail.com",
     description="This is pkg to load styling (tailwindcss and bootstrap) for reactpy, backend reactpy or other html files",
@@ -24,10 +24,24 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
         "Topic :: Text Processing :: Markup :: HTML",
         "Intended Audience :: Developers",
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
     ],
     python_requires=">=3.8",
     keywords=["tailwind", "tailwindcss", "style", "reactpy", "tailwind-py", "bootstrap", "bootstrap-py", "reactflow", "css", "reactflow-css", "reactflow_css"],
-    dependencies=["reactpy"]
+    dependencies=["reactpy"],
+    include_package_data=True,
+    package_data={
+        'reactflow_css': [
+            'reactflow_css/modules/tailwindcss/*'
+            'reactflow_css/modules/bootstrap/css/*'
+            'reactflow_css/modules/bootstrap/js/*'
+            'reactflow_css/modules/bootstrap/*'
+            'reactflow_css/modules/bootstrap/**/*'
+            'reactflow_css/modules/*'
+            'reactflow_css/modules/**/*',
+            'reactflow_css/*'
+            'reactflow_css/**/*'
+            ],
+    },
 )
