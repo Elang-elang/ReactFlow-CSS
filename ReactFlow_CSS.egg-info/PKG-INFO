@@ -1,0 +1,190 @@
+Metadata-Version: 2.4
+Name: ReactFlow_CSS
+Version: 1.0.1a0
+Summary: This is pkg to load styling (tailwindcss and bootstrap) for reactpy, backend reactpy or other html files
+Home-page: https://github.com/Elang-elang/tailwind-py
+Author: Elang Muhammad
+Author-email: elangmuhammad888@gmail.com
+Keywords: tailwind,tailwindcss,style,reactpy,tailwind-py,bootstrap,bootstrap-py,reactflow,css,reactflow-css,reactflow_css
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: JavaScript
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Text Processing :: Markup :: HTML
+Classifier: Intended Audience :: Developers
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+# ReactFlow CSS
+
+ReactFlow CSS is a Python package designed to simplify the integration of popular CSS frameworks like Tailwind CSS and Bootstrap into your ReactPy applications and other HTML projects. It provides a streamlined API for configuring, compiling, and serving CSS, making it easier to manage your styling directly from Python.
+
+## Features
+
+-   **Tailwind CSS Integration**: Easily configure and compile Tailwind CSS within your Python project.
+-   **Bootstrap Integration**: Seamlessly include Bootstrap CSS and JavaScript.
+-   **ReactPy Compatibility**: Designed to work effortlessly with ReactPy components.
+-   **Simplified API**: A `Helper` class to manage both frameworks with a unified interface.
+
+## Installation
+
+To install ReactFlow CSS, you can use pip:
+
+```bash
+pip install ReactFlow-CSS
+```
+
+## Usage
+
+ReactFlow CSS provides a `Helper` class that acts as a central point for managing both Tailwind CSS and Bootstrap.
+
+### Initializing the Helper
+
+First, import and initialize the `Helper` in your main application file. It requires the path to your main script to resolve relative paths correctly.
+
+```python
+from reactflow_css import Helper
+
+# Initialize the helper in your main application file
+# Pass __file__ to ensure correct path resolution
+style_helper = Helper(__file__)
+```
+
+### `reactflow_css` Package
+
+This is the main package providing styling utilities.
+
+-   `tailwindcss`: (module) Contains utilities for Tailwind CSS integration.
+-   `bootstrap`: (module) Contains utilities for Bootstrap integration.
+-   `configure_boots`: (function) Alias for `bootstrap.Configuration.configure`.
+-   `configure_tailwind`: (function) Alias for `tailwindcss.Configuration.configure`.
+-   `default_boots`: (function) Alias for `bootstrap.Configuration.default_css`.
+-   `default_tailwind`: (function) Alias for `tailwindcss.Configuration.default_css`.
+-   `convert_imports_to_link`: (function) Alias for `bootstrap.generate.Convert_style`.
+
+### `reactflow_css.tailwindcss` Module
+
+This module provides functionalities for integrating Tailwind CSS.
+
+#### `class configure`
+
+Handles the configuration and compilation of Tailwind CSS.
+
+-   `__init__(self, __path__)`:
+    -   Initializes the `configure` class.
+    -   `__path__`: The path to the main script, used for resolving relative paths.
+
+-   `config(self, config_dict: Dict[str, Any] = None, **kwargs) -> str`:
+    -   Generates the content for `tailwind.config.js`.
+    -   `config_dict`: A dictionary containing Tailwind CSS configuration.
+    -   `**kwargs`: Additional configuration as keyword arguments.
+    -   Returns: A string representing the `tailwind.config.js` content.
+
+-   `render_templates(self, path_config: str = None, path_index: str = None) -> None`:
+    -   Loads Tailwind CSS configuration and input CSS from specified files.
+    -   `path_config`: Path to the `tailwind.config.js` file (defaults to `./tailwind.config.js`).
+    -   `path_index`: Path to the input CSS file (defaults to `./input.css`).
+
+-   `default_templates(self, path_output: str = None) -> str`:
+    -   Returns the default Tailwind CSS content (from `output.css`).
+    -   `path_output`: Optional path to write the default CSS content.
+    -   Returns: The default CSS content as a string.
+
+-   `compile(self, path_config: str = None, path_index: str = None, path_output: str = "output.css", index: str = None, *args) -> str`:
+    -   Compiles Tailwind CSS based on the provided configuration and input.
+    -   `path_config`: Path to the `tailwind.config.js` file.
+    -   `path_index`: Path to the input CSS file.
+    -   `path_output`: Desired output path for the compiled CSS (defaults to `output.css`).
+    -   `index`: Optional string content for the input CSS.
+    -   `*args`: Additional arguments for the Tailwind CSS CLI.
+    -   Returns: The generated CSS content as a string.
+
+#### `function default_css(path_output: str = None) -> str`
+
+-   Returns the default Tailwind CSS content from the package's `output.css` file.
+-   `path_output`: Optional path to write the default CSS content.
+-   Returns: The default CSS content as a string.
+
+#### Exceptions
+
+-   `TailwindError(Exception)`: Base exception for all Tailwind-related errors.
+-   `ModuleNotFound(TailwindError, ImportError)`: Raised when a required module is not found.
+-   `ProcessError(TailwindError, RuntimeError)`: Raised for errors during process execution (e.g., `npx tailwindcss` command failures).
+-   `ConfigurationError(TailwindError)`: Raised for invalid Tailwind CSS configuration.
+-   `FileNotFoundError(TailwindError)`: Raised when a specified file is not found.
+-   `CompilationError(TailwindError)`: Raised for errors during CSS compilation.
+-   `ValidationError(TailwindError)`: Raised for validation failures.
+
+### `reactflow_css.bootstrap` Module
+
+This module provides functionalities for integrating Bootstrap.
+
+#### `class configure`
+
+Handles the configuration of Bootstrap styles.
+
+-   `__init__(self, __path__)`:
+    -   Initializes the `configure` class.
+    -   `__path__`: The path to the main script, used for resolving relative paths.
+
+-   `render_templates(self, path_input: str) -> str`:
+    -   Renders templates from a given input path.
+    -   `path_input`: The path to the input file.
+    -   Returns: The content of the rendered template.
+
+-   `config(self, style: str = "", output: str = None, *args) -> str`:
+    -   Configures the Bootstrap style.
+    -   `style`: A string containing CSS content.
+    -   `output`: Optional path to write the configured CSS.
+    -   `*args`: Additional import statements (e.g., `@import '--/path/to/file.css';`).
+    -   Returns: The final CSS content including imports.
+
+#### `function default_css(path_output: str = None) -> str`
+
+-   Returns the default Bootstrap CSS content (from `bootstrap.min.css`).
+-   `path_output`: Optional path to write the default CSS content.
+-   Returns: The default CSS content as a string.
+
+#### `component Convert_style(style: str)`
+
+-   A ReactPy component that converts CSS `@import` rules into `html.link` elements.
+-   `style`: A string containing CSS with `@import` statements.
+-   Returns: A list of ReactPy `html.link` elements.
+
+#### Exceptions
+
+-   `BootsTrapError(Exception)`: Base exception for all Bootstrap-related errors.
+-   `ModuleNotFound(BootsTrapError, ImportError)`: Raised when a required module is not found.
+-   `ProcessError(BootsTrapError, RuntimeError)`: Raised for errors during process execution.
+-   `ConfigurationError(BootsTrapError)`: Raised for configuration errors.
+-   `FileNotFoundError(BootsTrapError)`: Raised when a specified file is not found.
+-   `CompilationError(BootsTrapError)`: Raised for CSS compilation errors.
+-   `ValidationError(BootsTrapError)`: Raised for validation errors.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
