@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="ReactFlow-CSS",
-    version="2.0.0-Alpha-5",  # Major version bump to indicate stable release
+    version="2.0.0-Alpha-8",  # Major version bump to indicate stable release
     author="Elang Muhammad",
     author_email="elangmuhammad888@gmail.com",
     description="A comprehensive Python package for seamless integration of CSS frameworks (Tailwind CSS, Bootstrap) with ReactPy applications and HTML projects",

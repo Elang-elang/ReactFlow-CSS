@@ -59,16 +59,12 @@ class ReactPyIconGenerator:
     
     def _debug_directory_structure(self):
         """Debug method untuk melihat struktur direktori"""
-        print(f"Icons directory: {self.icons_path_input}")
         try:
             for item in self.icons_path_input.iterdir():
                 if item.is_dir():
                     svg_files = list(item.glob("*.svg"))
-                    print(f"  {item.name}/: {len(svg_files)} SVG files")
-                elif item.suffix == '.svg':
-                    print(f"  {item.name}")
         except Exception as e:
-            print(f"Error reading directory structure: {e}")
+            raise ProcessError(f"Error reading directory structure: {e}")
     
     def _get_icon_path(self, icon_name: str, style: IconStyle) -> Optional[Path]:
         """Get absolute path to icon file dengan error handling yang lebih baik"""
@@ -295,7 +291,6 @@ class ReactPyIconGenerator:
                                 total_rules += 1
                                 
                 except Exception as e:
-                    print(f"Warning: Skipping icon {icon_name} ({style.value}): {e}")
                     continue
         
         if total_rules == 0:
@@ -316,7 +311,6 @@ class ReactPyIconGenerator:
             with css_path_output.open('w', encoding='utf-8') as f:
                 f.write(css_content)
             
-            print(f"CSS file saved to: {css_path_output}")
             return True
             
         except Exception as e:
@@ -355,7 +349,6 @@ class ReactPyIconGenerator:
                     if base64_data:
                         catalog[style.value][icon_name] = base64_data
                 except Exception as e:
-                    print(f"Warning: Skipping icon {icon_name} ({style.value}): {e}")
                     continue
         
         return catalog
@@ -377,7 +370,6 @@ class ReactPyIconGenerator:
             with json_path_output.open('w', encoding='utf-8') as f:
                 json.dump(catalog, f, indent=2, ensure_ascii=False)
             
-            print(f"JSON catalog saved to: {json_path_output}")
             return True
             
         except Exception as e:
@@ -393,7 +385,6 @@ class ReactPyIconGenerator:
         Returns:
             Build result dictionary
         """
-        print("=== Starting build process ===")
         
         result = {
             'success': False,
@@ -438,7 +429,6 @@ class ReactPyIconGenerator:
             error_msg = f"Build error: {e}"
             result['errors'].append(error_msg)
             result['success'] = False
-            print(f"✗ {error_msg}")
             raise ProcessError(error_msg)
         
         return result
