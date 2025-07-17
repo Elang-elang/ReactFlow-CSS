@@ -1,10 +1,17 @@
+include reactflow_css/icons/icons/filled/*
+include reactflow_css/icons/icons/outlined/*
+include reactflow_css/icons/icons/round/*
+include reactflow_css/icons/icons/sharp/*
+include reactflow_css/icons/icons/two-tone/*
+include reactflow_css/icons/icons/**/*
+include reactflow_css/icons/icons/*
+include reactflow_css/icons/**/*
+include reactflow_css/icons/*
 include reactflow_css/modules/tailwindcss/*
 include reactflow_css/modules/bootstrap/css/*
 include reactflow_css/modules/bootstrap/js/*
-include reactflow_css/modules/bootstrap/*
 include reactflow_css/modules/bootstrap/**/*
-include reactflow_css/modules/*
+include reactflow_css/modules/bootstrap/*
 include reactflow_css/modules/**/*
-include reactflow_css/*
-include reactflow_css/**/*
+include reactflow_css/modules/*
 recursive-include reactflow_css/modules *

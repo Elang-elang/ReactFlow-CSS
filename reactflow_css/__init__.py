@@ -3,18 +3,18 @@ This package provides styling utilities for ReactPy applications,
 including integrations with Tailwind CSS and Bootstrap.
 """
 
-__version__ = '1.0.6'
+__version__ = '1.0.8'
 
 from .tailwindcss.Configuration import configure as configure_tailwind, default_css as default_tailwind
 
 from .bootstrap.Configuration import configure as configure_boots, default_css as default_boots
 
-from .bootstrap.generate import Convert_style as convert_imports_to_link
+from .modules.generate.core import CSSLinkConverter
 
-from . import tailwindcss
-from . import bootstrap
-from . import modules
-from .modules import *
+from .icons.generate import create_icon_generator, get_icon
+
+extract_imports = lambda content: CSSLinkConverter.extract_imports(css_content = content)
+resolve_path = lambda content: CSSLinkConverter.resolve_path(import_path = content)
 
 __all__ = [
     'tailwindcss',
@@ -23,5 +23,8 @@ __all__ = [
     'configure_tailwind',
     'default_boots',
     'default_tailwind',
-    'convert_imports_to_link'
+    'extract_imports',
+    'resolve_path',
+    'create_icon_generator',
+    'get_icon'
 ]

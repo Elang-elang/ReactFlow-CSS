@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="ReactFlow_CSS",
-    version="1.0.6",
+    name="ReactFlow-CSS",
+    version="1.0.8",
     author="Elang Muhammad",
     author_email="elangmuhammad888@gmail.com",
     description="This is pkg to load styling (tailwindcss and bootstrap) for reactpy, backend reactpy or other html files",
@@ -33,15 +33,24 @@ setup(
     include_package_data=True,
     package_data={
         'reactflow_css': [
+            'reactflow_css/icons/icons/filled/*',
+            'reactflow_css/icons/icons/outlined/*',
+            'reactflow_css/icons/icons/round/*',
+            'reactflow_css/icons/icons/sharp/*',
+            'reactflow_css/icons/icons/two-tone/*',
+            'reactflow_css/icons/icons/**/*',
+            'reactflow_css/icons/icons/*',
+            'reactflow_css/icons/**/*',
+            'reactflow_css/icons/*',
             'reactflow_css/modules/tailwindcss/*'
             'reactflow_css/modules/bootstrap/css/*'
             'reactflow_css/modules/bootstrap/js/*'
-            'reactflow_css/modules/bootstrap/*'
             'reactflow_css/modules/bootstrap/**/*'
-            'reactflow_css/modules/*'
+            'reactflow_css/modules/bootstrap/*'
             'reactflow_css/modules/**/*',
-            'reactflow_css/*'
-            'reactflow_css/**/*'
+            'reactflow_css/modules/*'
+            'reactflow_css/**/*',
+            'reactflow_css/*',
             ],
     },
 )
