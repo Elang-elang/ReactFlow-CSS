@@ -6,23 +6,23 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="ReactFlow-CSS",
-    version="2.0.0",  # Major version bump to indicate stable release
+    version="2.0.0-Alpha-5",  # Major version bump to indicate stable release
     author="Elang Muhammad",
     author_email="elangmuhammad888@gmail.com",
     description="A comprehensive Python package for seamless integration of CSS frameworks (Tailwind CSS, Bootstrap) with ReactPy applications and HTML projects",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Elang-elang/tailwind-py",
+    url="https://github.com/Elang-elang/ReactFlow-CSS.git",
     project_urls={
-        "Bug Tracker": "https://github.com/Elang-elang/tailwind-py/issues",
-        "Documentation": "https://github.com/Elang-elang/tailwind-py#readme",
-        "Source Code": "https://github.com/Elang-elang/tailwind-py",
+        "Bug Tracker": "https://github.com/Elang-elang/ReactFlow-CSS/issues",
+        "Documentation": "https://github.com/Elang-elang/ReactFlow-CSS#readme",
+        "Source Code": "https://github.com/Elang-elang/ReactFlow-CSS.git",
     },
     packages=find_packages(),
     classifiers=[
         # Development Status - Changed from Beta to Production/Stable
         # "Development Status :: 5 - Production/Stable",
-        "Development Status :: 3 - Alpha"
+        "Development Status :: 3 - Alpha",
         
         # Programming Language Support
         "Programming Language :: Python :: 3",
@@ -63,7 +63,7 @@ setup(
         "tailwind", "tailwindcss", "css", "styling", "reactpy", 
         "bootstrap", "web-development", "frontend", "ui", "css-framework",
         "python-css", "reactflow", "material-icons", "google-icons",
-        "css-compiler", "web-components", "responsive-design"
+        "css-compiler", "web-components", "responsive-design", "reactflow-css", "reactflow_css"
     ],
     
     # Dependencies - Fixed syntax and added install_requires
