@@ -28,3 +28,5 @@ __all__ = [
     'create_icon_generator',
     'get_icon'
 ]
+
+from ..cli import cli
