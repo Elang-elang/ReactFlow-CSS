@@ -120,7 +120,7 @@ setup(
         'console_scripts': [
             # Add console scripts here if your package provides CLI tools
             # 'reactflow-css=reactflow_css.cli:main',
-            'rf-css=cli.cli:main'
+            'rf-css=reactflow_css.cli.cli:main'
         ],
     },
     

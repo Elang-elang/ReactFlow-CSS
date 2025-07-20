@@ -29,4 +29,4 @@ __all__ = [
     'get_icon'
 ]
 
-from ..cli import cli
+from .cli import cli
