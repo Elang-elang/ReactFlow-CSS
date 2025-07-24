@@ -28,7 +28,7 @@
 
 <hr></hr>
 
-# ReactFlow CSS
+# Introduction
 
 ReactFlow CSS is a Python package that simplifies the integration of popular CSS frameworks like Tailwind CSS and Bootstrap into your ReactPy applications and other HTML projects. It provides a streamlined API for configuring, compiling, and serving CSS, making it easier to manage your styles directly from Python.
 

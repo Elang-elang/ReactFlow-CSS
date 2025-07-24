@@ -281,6 +281,8 @@ Notes:
     print(help_text)
 
 def run_tailwind_cli(args):
+    print([args])
+    print(["a", *args])
     try:
         # For help commands, no need for spinner
         if '--help' in args or '-h' in args:
@@ -294,7 +296,7 @@ def run_tailwind_cli(args):
         else:
             # Use spinner for other tailwind commands
             result = run_command_with_spinner(
-                ['npx', 'tailwindcss'] + args,
+                ['npx', 'tailwindcss', *args],
                 f"Running tailwindcss {' '.join(args)}...",
                 timeout=60,
                 spinner_type="circle"
@@ -306,7 +308,7 @@ def run_tailwind_cli(args):
         if result.stdout:
             print(result.stdout)
         if result.stderr:
-            print(Colors.red(result.stderr), file=sys.stderr)
+            print(Colors.yellow(result.stderr), file=sys.stderr)
             
         return result.returncode
         
@@ -320,12 +322,15 @@ def handle_init(args):
         print(Colors.red("[ERROR] init command requires arguments"))
         return
     
-    if args[0] in ['-d', '--default']:
-        if len(args) < 2:
-            print(Colors.red("[ERROR] --default flag requires a path"))
-            return
+    if args[0] in ('-d', '--default'):
+        output_path = ""
+        
+        try:
+            output_path = args[1]
             
-        output_path = args[1]
+        except Exception as e:
+            output_path = "./output.css"
+        
         if not output_path.startswith('./'):
             print(Colors.red(f"[ERROR] Path must start with './' - got '{output_path}'"))
             return
@@ -346,10 +351,11 @@ def handle_init(args):
         except Exception as e:
             spinner.stop(error_message=f"Error writing default CSS: {e}")
         return
-    
-    # For other init commands, pass to tailwindcss
-    print("Initializing Tailwind CSS...")
-    run_tailwind_cli(['init'] + args)
+    else:
+        # For other init commands, pass to tailwindcss
+        print("Initializing Tailwind CSS...")
+        run_tailwind_cli([*args])
+    return
 
 
 def handle_command():
