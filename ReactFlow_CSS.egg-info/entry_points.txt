@@ -1,2 +1,0 @@
-[console_scripts]
-rf-css = reactflow_css.cli.cli:main

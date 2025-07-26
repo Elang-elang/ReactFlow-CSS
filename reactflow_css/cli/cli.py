@@ -712,7 +712,7 @@ Usage:
 Flags:
     -o, --output [path]                  Path to output CSS file (default: ./output.css)
     --logs [boolean]                     Save generation logs (default: false)
-    --all                                Generate all available icons
+    --all                                Generate all available icons (with flag --type, --icon, or none)
     --icon [array]                       Specific icon names to generate (array format)
     --type [array]                       Icon types to generate (array format)
 
@@ -779,18 +779,22 @@ def generate_icons(args: List[str]) -> int:
     try:
         # Execute icon generation based on provided arguments
         if '--all' in args:
+            if (not icon_list) ^ (not icon_types):  # Empty list
+                print(Colors.yellow("[WARNING] Icon list or icon type is empty, no icons to generate"))
+                return 0
+                
             print(Colors.cyan("[INFO] Generating all available icons..."))
             create_icon_generator(
                 output_path=output_path,
                 save_logs=save_logs,
                 icon_filter=icon_types,
-                icons=None  # None means all icons
+                icons=icon_list
             )
-            print(Colors.green(f"[SUCCESS] All icons generated successfully in {output_path}"))
+            print(Colors.green(f"[SUCCESS] All {icon_list or icon_types or (icon_list, icon_types) or ""} icons generated successfully in {output_path}"))
             
-        elif icon_list is not None:
-            if not icon_list:  # Empty list
-                print(Colors.yellow("[WARNING] Icon list is empty, no icons to generate"))
+        else:
+            if not icon_list or not icon_types:  # Empty list
+                print(Colors.yellow("[WARNING] Icon list and icon type is empty, no icons to generate"))
                 return 0
                 
             print(Colors.cyan(f"[INFO] Generating {len(icon_list)} specific icons..."))
@@ -800,17 +804,13 @@ def generate_icons(args: List[str]) -> int:
                 icon_filter=icon_types,
                 icons=icon_list
             )
-            print(Colors.green(f"[SUCCESS] Icons {icon_list} generated successfully in {output_path}"))
-            
-        else:
-            print(Colors.red("[ERROR] Must specify either --all or --icon with specific icons"))
-            print(Colors.yellow("[HINT] Use 'rf-css generate-icons --help' for usage information"))
-            return 1
+            print(Colors.green(f"[SUCCESS] Icons {icon_list} with {icon_types} generated successfully in {output_path}"))
             
         return 0
         
     except Exception as e:
         print(Colors.red(f"[ERROR] Icon generation failed: {str(e)}"))
+        print(Colors.yellow("[HINT] Use 'rf-css generate-icons --help' for usage information"))
         logger.error(f"Icon generation error: {e}")
         return 1
 
