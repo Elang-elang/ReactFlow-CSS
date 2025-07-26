@@ -233,7 +233,7 @@ class ArgumentParser:
                 self.args['input'] = args[i + 1]
                 i += 1
             
-            elif arg in ['-d', '--directory']:
+            elif arg == '--directory':
                 if i + 1 >= len(args):
                     raise ValueError(f"Argument {arg} requires a value")
                 self.args['directory'] = args[i + 1]
@@ -309,76 +309,171 @@ class ArgumentParser:
     def print_help(self):
         """Print help message"""
         help_text = """
-SASS/SCSS to CSS Converter - Convert SASS/SCSS files to CSS using Python and libsass
+Usage: rf-css sass-convert [--verbose] [--watch] [input_option] [arguments]
 
-INPUT OPTIONS (choose one):
-    -i, --input [FILE_INPUT]              Specify input SASS/SCSS file path
-    -d, --directory [DIR_PATH]            Specify input directory containing SASS/SCSS files
-    --glob [PATTERN]                      Use glob pattern to match multiple files (e.g., "./src/**/*.scss")
+A comprehensive SASS/SCSS to CSS converter powered by libsass with advanced
+compilation features, source mapping, and flexible input/output handling.
+  --verbose enables detailed processing information and comprehensive error traces
+  --watch enables automatic recompilation when source files change (requires watchdog)
 
-OUTPUT OPTIONS:
-    -o, --output [PATH]                   Specify output path (can be file path or directory path)
+Input Options (select one):
 
-COMPILATION OPTIONS:
-    -s, --style [STYLE]                   Set CSS output formatting style:
-            nested (default, indented like SASS)
-            expanded (readable with separate lines)
-            compact (one line per CSS rule)
-            compressed (minified for production)
-            
-    --source-map                          Generate source map files (.css.map) for debugging
-    --include-path [PATH]                 Add directory path for @import resolution (can be used multiple times)
-    --precision [NUMBER]                  Set decimal precision for numeric values in CSS output (default: 5)
+  -i, --input <file>   - Specify single SASS/SCSS file path for conversion.
+                         Supports both .sass and .scss file formats with
+                         automatic syntax detection.
 
-PROCESSING OPTIONS:
-    --recursive                           Enable recursive scanning of subdirectories when processing directories
-    --watch                               Enable watch mode for automatic recompilation on file changes (requires watchdog)
-    -v, --verbose                         Enable verbose output with detailed information and error traces
+  --directory <path> - Specify input directory containing SASS/SCSS files
+                           for batch processing. Processes all compatible
+                           files in specified directory.
 
-OTHER OPTIONS:
-    -h, --help                            Show this help message and exit
+  --glob <pattern>     - Use glob pattern to match multiple files with
+                         specific naming conventions or directory structures.
+                         Supports advanced patterns like './src/**/*.scss'
 
-EXAMPLES:
+Output Configuration:
 
-    rf-css sass-convert -i style.scss -o style.css                           # Single file conversion
-    
-    rf-css sass-convert -i style.scss -o style.css -s compressed            # Single file with compressed output
-    
-    rf-css sass-convert -i style.scss -o style.css --source-map          # Single file with source map generation
-    
-    rf-css sass-convert -d ./sass -o ./css                                   # Process entire directory
-    
-    rf-css sass-convert -d ./sass -o ./css --recursive                       # Directory with recursive subdirectory scanning
-    
-    rf-css sass-convert -d ./sass -o ./css --watch                           # Watch mode for automatic recompilation (requires watchdog)
-    
-    rf-css sass-convert -i main.scss -o main.css --include-path ./vendors --include-path ./mixins              # With custom include paths for @import statements
-    
-    rf-css sass-convert --glob "./src/**/*.scss" -o ./dist                # Batch processing with glob patterns
+  -o, --output <path>  - Specify output destination path. Can be either:
+                         • File path for single file input conversion
+                         • Directory path for batch processing operations
+                         • Relative or absolute path formats supported
 
-OUTPUT STYLES:
+Compilation Options:
 
-    nested (default):
-        .navbar {
-          background: #333; }
-          .navbar .nav-item {
-            color: white; }
+  -s, --style <format> - Set CSS output formatting style for different
+                         use cases and deployment requirements:
 
-    expanded:
-        .navbar {
-          background: #333;
-        }
+                         nested     - Default SASS-style indented format
+                                     with hierarchical structure preservation
+                         expanded   - Human-readable format with separate
+                                     lines and clear property separation
+                         compact    - Space-efficient format with one line
+                                     per CSS rule for reduced file size
+                         compressed - Minified production format with
+                                     whitespace removal and optimization
 
-        .navbar .nav-item {
-          color: white;
-        }
+  --source-map         - Generate corresponding source map files (.css.map)
+                         for development debugging and browser DevTools
+                         integration. Maps compiled CSS back to original
+                         SASS/SCSS source locations.
 
-    compact:
-        .navbar { background: #333; }
-        .navbar .nav-item { color: white; }
+  --include-path <path> - Add directory path for @import and @use statement
+                          resolution. Can be specified multiple times to
+                          add multiple search directories for dependencies.
 
-    compressed:
-        .navbar{background:#333}.navbar .nav-item{color:white}
+  --precision <number> - Set decimal precision for numeric calculations
+                         in CSS output. Controls rounding of computed
+                         values like percentages and measurements.
+                         Default precision is 5 decimal places.
 
+Processing Options:
+
+  --recursive          - Enable recursive scanning of subdirectories when
+                         processing directories. Searches entire directory
+                         tree for SASS/SCSS files automatically.
+
+  --watch              - Enable watch mode for continuous development
+                         workflow. Monitors source files for changes and
+                         automatically recompiles modified files.
+                         Requires 'watchdog' Python package installation.
+
+Other Options:
+
+  -h, --help           - Display this comprehensive help message with
+                         complete option reference and usage examples.
+
+Output Style Examples:
+
+  nested (default):
+    .navbar {
+      background-color: #333333;
+      padding: 1rem; }
+      .navbar .nav-item {
+        color: white;
+        text-decoration: none; }
+        .navbar .nav-item:hover {
+          color: #cccccc; }
+
+  expanded:
+    .navbar {
+      background-color: #333333;
+      padding: 1rem;
+    }
+
+    .navbar .nav-item {
+      color: white;
+      text-decoration: none;
+    }
+
+    .navbar .nav-item:hover {
+      color: #cccccc;
+    }
+
+  compact:
+    .navbar { background-color: #333333; padding: 1rem; }
+    .navbar .nav-item { color: white; text-decoration: none; }
+    .navbar .nav-item:hover { color: #cccccc; }
+
+  compressed:
+    .navbar{background-color:#333;padding:1rem}.navbar .nav-item{color:#fff;text-decoration:none}.navbar .nav-item:hover{color:#ccc}
+
+Usage Examples:
+
+  rf-css sass-convert -i styles.scss -o styles.css
+                       Convert single SCSS file to CSS with default
+                       nested formatting style.
+
+  rf-css sass-convert -i styles.scss -o styles.css -s compressed --source-map
+                       Convert single file to minified CSS with source
+                       map generation for production deployment.
+
+  rf-css sass-convert --directory ./src/scss -o ./dist/css --recursive
+                       Batch process entire SCSS directory tree with
+                       recursive subdirectory scanning.
+
+  rf-css sass-convert --directory ./src/scss -o ./dist/css --watch --verbose
+                       Enable watch mode with detailed logging for
+                       continuous development workflow.
+
+  rf-css sass-convert -i main.scss -o main.css --include-path ./vendors --include-path ./mixins
+                       Convert with multiple custom import paths for
+                       external dependencies and shared mixins.
+
+  rf-css sass-convert --glob "./src/**/*.scss" -o ./dist --style expanded
+                       Use glob pattern to process multiple SCSS files
+                       with expanded output formatting.
+
+  rf-css sass-convert -i styles.scss -o styles.css --precision 3 -s compact
+                       Convert with custom numeric precision and compact
+                       formatting for optimized output.
+
+  rf-css sass-convert --directory ./themes -o ./css --recursive --source-map --watch
+                       Complete development setup with directory watching,
+                       source maps, and recursive processing.
+
+Advanced Usage Patterns:
+
+  # Development workflow with hot reloading
+  rf-css sass-convert --directory ./src/styles -o ./public/css --watch --source-map --verbose
+
+  # Production build with optimization
+  rf-css sass-convert --glob "./src/**/*.scss" -o ./dist/css -s compressed
+
+  # Library development with custom import paths  
+  rf-css sass-convert -i library.scss -o library.css --include-path ./node_modules --include-path ./vendors
+
+  # Multi-theme processing with organized output
+  rf-css sass-convert --directory ./themes --recursive -o ./dist/themes -s expanded --source-map
+
+Notes:
+
+  • Both .sass (indented syntax) and .scss (CSS-like syntax) formats are supported
+  • Watch mode requires 'watchdog' package: install with 'pip install watchdog'
+  • Source maps are essential for development but should be excluded from production
+  • Include paths are searched in order when resolving @import and @use statements
+  • Recursive directory processing maintains relative directory structure in output
+  • Glob patterns support standard wildcards: * (files), ** (directories), ? (single char)
+  • Compressed output style provides maximum file size reduction for production deployment
+  • Error reporting includes line numbers and file paths for efficient debugging
+  • Watch mode monitors both source files and imported dependencies for changes
         """
         print(help_text.strip())

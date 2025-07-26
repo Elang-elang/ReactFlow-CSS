@@ -304,60 +304,171 @@ class DependencyChecker:
 def show_help() -> None:
     """Display help information"""
     help_text = """
-rf-css - ReactFlow-CSS CLI Tool
+Usage: rf-css [--verbose] [--version] command [arguments]
 
-Usage:
-    rf-css [command] [flags] [args]
+A comprehensive CLI tool for managing CSS workflows in ReactFlow projects.
+Integrates TailwindCSS compilation, SASS/SCSS conversion, and Material Icons generation.
+  --verbose enables detailed output with comprehensive information and error traces
+  --version displays current tool version
 
-Commands:                                 
-    tailwindcss [args]                    Access tailwindcss CLI directly
-    sass-convert [args]                   Generate CSS with convert sass/scss
-    generate-icons [args]                 Generate icon with CSS url
-    
-Flags:
-    -i, --input [path]                    Specify input CSS file path
-    -o, --output [path]                   Specify output CSS file path
-    -v, --version                         Show version
-    -V, --verbose                         Enable verbose output with detailed information and error traces
-    -h, --help                            Show this help message
-    --tailwindcss-help                    Show Tailwindcss help
-    --sass-convert-help                   Show Complex and Detail for help sass convert to css
+Commands:
 
-Flags Tailwindcss Only:
-    -c, --config [path]                   Specify config file path (tailwind.config.js)
-    --default [path]                      Generate default tailwindcss to output path
+  tailwindcss [args]   - Access TailwindCSS CLI functionality directly with
+                         full feature support including configuration
+                         management and utility generation.
 
-Flags SASS/SCSS Only:
-    --directory [directory]               Specify input directory containing SASS/SCSS files
-    -s, --style [args]                    Set CSS output formatting style
-    --source-map                          Generate source map files (.css.map) for debugging
-    --recursive                           Enable recursive scanning of subdirectories when processing directories
-    --watch                               Enable watch mode for automatic recompilation on file changes
-    --glob [path specific dict]           Use glob pattern to match multiple files
-    --include-path [path]                 Specify additional directories where SASS can find imported files
-    --precision [numbers]                 Set decimal precision for numeric values in CSS output
+  sass-convert [args]  - Convert SASS/SCSS files to CSS with advanced
+                         compilation options, source mapping, and
+                         directory processing capabilities.
 
-Flags Generate-icons Only:
-    --logs [boolean]                     Save generation logs (default: false)
-    --all                                Install All icons
-    --icon [name_icon]                   Existing and available icon names, array only
-    --type [type]                        Icon type with several types and array only. Namely type:
-        filled,
-        outlined,
-        round,
-        sharp,
-        two-tone
+  generate-icons [args] - Generate CSS for Material Icons with URL-based
+                          icon integration for ReactFlow components.
+
+Global Arguments:
+
+  -i, --input <path>   - Specify input file path for processing. Used
+                         by sass-convert and other file-based commands.
+
+  -o, --output <path>  - Specify output file path for generated content.
+                         Defaults vary by command context.
+
+  -h, --help           - Display this help message with complete command
+                         reference and usage examples.
+
+  --tailwindcss-help   - Display comprehensive TailwindCSS CLI help with
+                         all available options and configurations.
+
+  --sass-convert-help  - Display detailed SASS/SCSS conversion help with
+                         advanced options, examples, and best practices.
+
+TailwindCSS Specific Arguments:
+
+  -c, --config <path>  - Specify custom TailwindCSS configuration file
+                         path. Defaults to 'tailwind.config.js' in
+                         current directory.
+
+  --default <path>     - Generate default TailwindCSS base styles and
+                         utilities to specified output path for quick
+                         project initialization.
+
+SASS/SCSS Specific Arguments:
+
+  --directory <path>   - Specify input directory containing SASS/SCSS
+                         files for batch processing. Supports nested
+                         directory structures.
+
+  -s, --style <format> - Set CSS output formatting style. Available
+                         formats: expanded, compressed, compact, nested.
+                         Default is 'expanded'.
+
+  --source-map         - Generate corresponding source map files (.css.map)
+                         for debugging and development workflow
+                         integration.
+
+  --recursive          - Enable recursive scanning of subdirectories when
+                         processing directories. Processes all SASS/SCSS
+                         files in directory tree.
+
+  --watch              - Enable watch mode for automatic recompilation
+                         when source files change. Ideal for development
+                         workflow.
+
+  --glob <pattern>     - Use glob pattern to match multiple files with
+                         specific naming conventions or locations.
+                         Example: '**/*.scss'
+
+  --include-path <path> - Specify additional directories where SASS can
+                          find imported files and dependencies. Supports
+                          multiple paths.
+
+  --precision <number> - Set decimal precision for numeric values in CSS
+                         output. Controls rounding of calculated values.
+                         Default is 5 decimal places.
+
+Generate-Icons Specific Arguments:
+
+  --logs <boolean>     - Enable generation logs with detailed processing
+                         information. Accepts true/false values.
+                         Default is false.
+
+  --all                - Generate CSS for all available Material Icons
+                         across all supported styles. Can be combined
+                         with --type for filtered generation.
+
+  --icon <json_array>  - Specify exact icon names to generate. Accepts
+                         JSON array format with valid Material Icon
+                         names. Example: '["home", "search", "menu"]'
+
+  --type <json_array>  - Specify icon styles to generate. Accepts JSON
+                         array with available types. Supported types:
+                         filled, outlined, round, sharp, two-tone.
+
+Available Icon Types:
+
+  filled               - Solid icons with filled interior areas for
+                         strong visual emphasis and primary actions.
+
+  outlined             - Line-based icons with transparent interiors
+                         for subtle interface elements and secondary
+                         actions.
+
+  round                - Icons with rounded corners and soft edges for
+                         friendly, approachable interface design.
+
+  sharp                - Icons with angular corners and sharp edges for
+                         modern, technical interface aesthetics.
+
+  two-tone             - Dual-color icons using primary and secondary
+                         colors for enhanced visual hierarchy and depth.
 
 Examples:
-    rf-css tailwindcss init --default ./output.css  # Create default CSS file
-    rf-css --tailwindcss-help                       # Show tailwindcss help
-    rf-css --sass-convert-help                      # Show sass-convert more complex, specific, and detailed assistance
-    rf-css generate-icons --icon '["home", "add"]' --type '["filled", "outlined"]' -o ./output.css # For generate icon "home" and "add" with type "filled" and "outlined" and with output "output.css"
-    rf-css -v                                       # Show version
+
+  rf-css tailwindcss init --default ./styles.css
+                       Initialize new project with default TailwindCSS
+                       base styles and utilities.
+
+  rf-css tailwindcss -c ./config/tailwind.config.js -i ./src/input.css -o ./dist/output.css
+                       Compile TailwindCSS with custom configuration
+                       and specific input/output paths.
+
+  rf-css sass-convert -i ./styles.scss -o ./dist/styles.css --style compressed
+                       Convert single SCSS file to compressed CSS
+                       format for production deployment.
+
+  rf-css sass-convert --directory ./src/scss --recursive --watch -o ./dist/css
+                       Watch entire SCSS directory tree for changes
+                       and automatically recompile to output directory.
+
+  rf-css sass-convert -i ./main.scss --source-map --include-path ./vendors --precision 3
+                       Convert SCSS with source mapping, custom import
+                       paths, and specific numeric precision.
+
+  rf-css generate-icons --all --type '["filled", "outlined"]' -o ./icons.css
+                       Generate all Material Icons in filled and
+                       outlined styles only.
+
+  rf-css generate-icons --icon '["home", "search", "settings"]' --logs true
+                       Generate specific icons with detailed logging
+                       enabled for debugging.
+
+  rf-css --sass-convert-help
+                       Display comprehensive SASS conversion help with
+                       advanced configuration options.
+
+  rf-css --verbose generate-icons --all
+                       Generate all icons with detailed verbose output
+                       showing processing steps and results.
 
 Notes:
-    - This is a beta CLI tool
-    - File paths should start with './'
+
+  • This tool is currently in beta - report issues and provide feedback
+  • File paths should be relative (starting with './') or absolute paths
+  • JSON array arguments must be properly quoted to prevent shell interpretation
+  • Watch mode requires manual termination (Ctrl+C) to stop monitoring
+  • Source maps are recommended for development but should be excluded from production
+  • Icon generation creates CSS classes compatible with ReactFlow component integration
+  • TailwindCSS commands require proper configuration file for advanced features
+  • SASS/SCSS processing supports both Dart Sass and LibSass syntax variations
     """
     print(help_text)
 
@@ -704,35 +815,81 @@ def parse_boolean_argument(args: List[str], target: str, default_value: bool = F
 def help_generate_icon() -> None:
     """Display help for generate-icons command"""
     help_text = """
-rf-css - ReactFlow-CSS CLI Tool - Generate Icons
+Usage: rf-css [--logs] command [arguments]
 
-Usage:
-    rf-css generate-icons [flags] [args]
+A CLI tool for generating CSS from Material Icons for ReactFlow components.
+  --logs enables detailed logging for all operations
 
-Flags:
-    -o, --output [path]                  Path to output CSS file (default: ./output.css)
-    --logs [boolean]                     Save generation logs (default: false)
-    --all                                Generate all available icons (with flag --type, --icon, or none)
-    --icon [array]                       Specific icon names to generate (array format)
-    --type [array]                       Icon types to generate (array format)
+Commands:
+
+  generate-icons       - Generate CSS for Material Icons with customizable
+                         output and filtering options.
+
+Arguments for generate-icons:
+
+  -o, --output <path>  - Specify output CSS file path. Defaults to
+                         './output.css' in current directory.
+
+  --all               - Generate CSS for all available Material Icons
+                         across all styles. Can be combined with --type
+                         to limit styles, or used alone for complete
+                         generation.
+
+  --icon <json_array> - Generate CSS for specific icons only. Accepts
+                         JSON array format with icon names.
+                         Example: '["home", "search", "menu"]'
+
+  --type <json_array> - Generate CSS for specific Material Icon styles
+                         only. Accepts JSON array format with style names.
+                         Example: '["filled", "outlined"]'
 
 Available Icon Types:
-    - filled        Material Icons filled style
-    - outlined      Material Icons outlined style  
-    - round         Material Icons rounded style
-    - sharp         Material Icons sharp style
-    - two-tone      Material Icons two-tone style
+
+  filled              - Material Icons filled style - solid icons with
+                         filled interior areas.
+
+  outlined            - Material Icons outlined style - line-based icons
+                         with transparent interior areas.
+
+  round               - Material Icons rounded style - icons with rounded
+                         corners and edges for softer appearance.
+
+  sharp               - Material Icons sharp style - icons with sharp,
+                         angular corners for modern look.
+
+  two-tone            - Material Icons two-tone style - icons using two
+                         colors for depth and visual hierarchy.
 
 Examples:
-    rf-css generate-icons --all                                    # Generate all icons
-    rf-css generate-icons --icon '["home", "search"]' -o ./icons.css  # Generate specific icons
-    rf-css generate-icons --icon '["menu"]' --type '["filled", "outlined"]'  # Multiple types
-    rf-css generate-icons --all --logs true -o ./all-icons.css    # With logging enabled
+
+  rf-css generate-icons --all
+                       Generate CSS for all available Material Icons
+                       across all five styles.
+
+  rf-css generate-icons --icon '["home", "search"]' -o ./icons.css
+                       Generate CSS only for home and search icons,
+                       save to icons.css file.
+
+  rf-css generate-icons --icon '["menu"]' --type '["filled", "outlined"]'
+                       Generate CSS for menu icon in both filled and
+                       outlined styles only.
+
+  rf-css generate-icons --all --type '["filled"]' --logs -o ./filled-icons.css
+                       Generate all icons in filled style only with
+                       detailed logging enabled.
+
+  rf-css generate-icons --type '["outlined", "round"]' --logs
+                       Generate all icons in outlined and round styles
+                       with logging, output to default file.
 
 Notes:
-    - Icon and type arguments must be valid JSON arrays
-    - Output path should start with './' for current directory
-    - Use quotes around array arguments to prevent shell interpretation
+
+  • Icon and type arguments must be valid JSON array format enclosed in quotes
+  • Output path should be relative (starting with './') or absolute path
+  • Use single or double quotes around JSON arrays to prevent shell interpretation
+  • The --all flag can be combined with --type to generate all icons of specific styles
+  • Logging is disabled by default; use --logs flag to enable detailed output
+  • Generated CSS includes all necessary classes for ReactFlow icon integration
     """
     print(help_text)
 
