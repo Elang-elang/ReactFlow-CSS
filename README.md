@@ -41,7 +41,7 @@ ReactFlow CSS is a Python package that simplifies the integration of popular CSS
 - **Unified API**: `Helper` class for managing multiple frameworks through a single interface.
 - **Template Management**: Built-in templates and default styles for rapid development.
 - **CLI Comment**: For `Setup and Build` your projects
-
+- **SASS Converter**: Convert `SASS/SCSS` with cli complex
 ## Installation
 
 Install ReactFlow CSS using pip:
@@ -62,9 +62,9 @@ The CLI simplifies the development process.
 ### Usage Examples:
 
 ```bash
-rf-css init -d
+rf-css tailwindcss init -default ./output.css
 ```
-Creates default Tailwind CSS styles.
+Creates default Tailwind CSS styles and output drop in output.css.
 
 ### Getting Help
 

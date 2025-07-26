@@ -400,30 +400,21 @@ class ReactPyIconGenerator:
             css_success = self.save_css_file(icon_filter)
             if css_success:
                 result['css_file'] = str(self.path_output / self.config.css_filename)
-                print(f"✓ CSS file generated successfully")
             else:
                 result['errors'].append("Failed to generate CSS file")
-                print("✗ Failed to generate CSS file")
-            
+                
             # Generate JSON catalog
             json_success = self.save_icon_catalog_json(icon_filter)
             if json_success:
                 result['json_file'] = str(self.path_output / "icon_catalog.json")
-                print(f"✓ JSON catalog generated successfully")
             else:
                 result['errors'].append("Failed to generate JSON catalog")
-                print("✗ Failed to generate JSON catalog")
             
             # Get available icons
             available_icons = self.get_available_icons()
             result['available_icons'] = available_icons
             result['total_icons'] = sum(len(icons) for icons in available_icons.values())
             result['success'] = css_success and json_success
-            
-            if result['success']:
-                print(f"✓ Build completed successfully. Total icons: {result['total_icons']}")
-            else:
-                print(f"✗ Build completed with errors: {result['errors']}")
                 
         except Exception as e:
             error_msg = f"Build error: {e}"
@@ -434,28 +425,71 @@ class ReactPyIconGenerator:
         return result
 
 
-# ReactPy Helper Functions
-def create_icon_generator(output_dir: str = "output", css_prefix: str = "icon", 
-                         naming_pattern: str = "prefix_style_icon", **kwargs) -> ReactPyIconGenerator:
+def create_icon_generator(output_path: str, save_logs: bool = False, icon_filter: Optional[List[str]] = None, icons: Optional[List[str]] = None) -> bool:
     """
-    Helper to create a generator with easy configuration
+    Generate CSS file with icons to specified output path
     
     Args:
-        output_dir: Output directory
-        css_prefix: Prefix for CSS classes
-        naming_pattern: Pattern untuk penamaan class ("prefix_style_icon" atau "folder_icon")
-        **kwargs: Additional parameters
+        output_path: Full path for the output CSS file (e.g., "/path/to/output.css")
+        save_logs: Whether to save logs (currently not implemented)
+        icon_filter: List of icon styles to filter ("filled", "outlined", "round", "sharp", "two-tone")
+        icons: List of specific icon names to generate (if None, generates all icons)
         
     Returns:
-        ReactPyIconGenerator instance
+        bool: True if successful, False otherwise
     """
-    config = IconConfig(
-        output_dir=output_dir,
-        css_prefix=css_prefix,
-        naming_pattern=naming_pattern,
-        **kwargs
-    )
-    return ReactPyIconGenerator(config)
+    try:
+        # Parse output path
+        output_file = Path(output_path)
+        output_dir = output_file.parent
+        css_filename = output_file.name
+        
+        # Determine which styles to include
+        available_styles = [IconStyle.FILLED, IconStyle.OUTLINED, IconStyle.ROUND, IconStyle.SHARP, IconStyle.TWO_TONE]
+        
+        if icon_filter:
+            # Filter styles based on icon_filter parameter
+            filtered_styles = []
+            for style_name in icon_filter:
+                try:
+                    style = IconStyle(style_name.lower().replace("-", "_"))
+                    if style in available_styles:
+                        filtered_styles.append(style)
+                except ValueError:
+                    continue
+            styles_to_use = filtered_styles if filtered_styles else available_styles
+        else:
+            styles_to_use = available_styles
+        
+        # Create configuration
+        config = IconConfig(
+            output_dir=str(output_dir),
+            css_filename=css_filename,
+            css_prefix="icon",
+            icon_styles=styles_to_use,
+            include_size_variants=True,
+            size_variants=["16", "24", "32", "48"],
+            naming_pattern="prefix_style_icon"
+        )
+        
+        # Create generator instance
+        generator = ReactPyIconGenerator(config)
+        
+        # Generate CSS file with icon filtering
+        success = generator.save_css_file(icon_filter=icons)
+        
+        # Save logs if requested (placeholder for future implementation)
+        if save_logs:
+            # TODO: Implement logging functionality
+            # Could save generation logs, errors, statistics, etc.
+            pass
+        
+        return success
+        
+    except Exception as e:
+        # Silent error handling - no print statements
+        return False
+
 
 
 def get_icon(icon_name: str, style: str = "filled") -> Optional[str]:

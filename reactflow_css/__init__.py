@@ -3,7 +3,7 @@ This package provides styling utilities for ReactPy applications,
 including integrations with Tailwind CSS and Bootstrap.
 """
 
-__version__ = '2.0.0'
+__version__ = '2.1.0'
 
 from .tailwindcss.Configuration import configure as configure_tailwind, default_css as default_tailwind
 
